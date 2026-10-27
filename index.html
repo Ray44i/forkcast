@@ -42,11 +42,28 @@
 
         <div class="demo-ribbon">
           <span><strong>DEMO MODE</strong> · All businesses, recipients, and pickup events are fictional.</span>
-          <span class="model-status"><span class="model-dot"></span> No external model calls</span>
+          <span class="model-status"><span class="model-dot"></span> Local intake demo · no API calls</span>
         </div>
 
         <section class="workspace" aria-label="Forkcast surplus recovery demo">
           <div class="main-column">
+            <article class="panel intake-panel" aria-labelledby="intakeTitle">
+              <div class="panel-heading intake-heading">
+                <div>
+                  <div class="section-kicker">DONOR NOTE → STRUCTURED BATCH</div>
+                  <h2 id="intakeTitle">Turn a message into a pickup plan</h2>
+                </div>
+                <span class="intake-mode">LOCAL DEMO · NO API CALLS</span>
+              </div>
+              <label class="intake-label" for="donorNote">SAMPLE DONOR NOTE</label>
+              <textarea id="donorNote" rows="2" spellcheck="false">30 sourdough loaves, baked at 16:00, stored at 4°C, pickup by 20:30</textarea>
+              <div class="intake-controls">
+                <span>Extracts quantity, food type, pickup time, and required demo facts.</span>
+                <button class="primary-button intake-button" id="parseIntakeButton" type="button">Extract &amp; check <span aria-hidden="true">→</span></button>
+              </div>
+              <div class="intake-result" id="intakeResult" role="status" aria-live="polite">This local demo parser never sends your note anywhere. Extracted values update the fictional batch below.</div>
+            </article>
+
             <article class="panel batch-panel">
               <div class="panel-heading">
                 <div>
@@ -67,22 +84,22 @@
                   </svg>
                 </div>
                 <div class="batch-details">
-                  <div class="quantity"><span id="quantityDisplay">30</span> <small>loaves</small></div>
-                  <div class="item-name">Fresh sourdough</div>
+                  <div class="quantity"><span id="quantityDisplay">30</span> <small id="quantityUnit">loaves</small></div>
+                  <div class="item-name" id="itemNameDisplay">Fresh sourdough</div>
                   <div class="business-line"><span class="business-icon">⌂</span> Apricot Bakehouse <span class="location-sep">·</span> Kadıköy, Istanbul</div>
                 </div>
                 <div class="deadline-card">
                   <span class="deadline-label">PICKUP BY</span>
-                  <strong>20:30</strong>
+                  <strong id="deadlineDisplay">20:30</strong>
                   <span class="deadline-date">Today · 27 Oct</span>
                   <div class="deadline-progress"><span></span></div>
-                  <span class="time-left">80 min remaining</span>
+                  <span class="time-left" id="timeRemaining">80 min remaining</span>
                 </div>
               </div>
 
               <div class="safety-strip">
-                <span class="checkmark" aria-hidden="true">✓</span>
-                <div><strong>Demo safety gate passed</strong><span>Required storage and preparation facts are present in this synthetic batch.</span></div>
+                <span class="checkmark" id="safetyIcon" aria-hidden="true">✓</span>
+                <div><strong id="safetyTitle">Required demo facts present</strong><span id="safetyDescription">A preparation time and storage temperature were found. This is not a food-safety determination.</span></div>
                 <span class="gate-tag">RULE CHECK</span>
               </div>
             </article>
@@ -93,7 +110,7 @@
                   <div class="section-kicker">FEASIBLE OPTIONS</div>
                   <h2 id="routesTitle">Best available route</h2>
                 </div>
-                <span class="route-count">3 checked</span>
+                <span class="route-count" id="routeCount">3 checked · 2 feasible</span>
               </div>
 
               <div class="selected-route" id="selectedRoute">
