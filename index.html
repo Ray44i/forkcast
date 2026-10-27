@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102e25" />
+    <meta name="description" content="Forkcast routes safe surplus food to its best feasible next stop." />
+    <title>Forkcast — Rescue, recalculated.</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Forkcast home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 44 44" fill="none">
+              <path d="M9 8v9.5a5 5 0 0 0 10 0V8M14 8v10M9 13h10M14 22v14M30 8c-4 4-5 8-5 13v2h9v-2c0-5-1-9-4-13ZM29.5 23v13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="brand-name">forkcast<span class="brand-period">.</span></span>
+        </a>
+        <div class="topbar-right">
+          <span class="demo-label"><span class="pulse-dot"></span> INTERACTIVE DEMO</span>
+          <button class="reset-button" id="resetButton" type="button" title="Reset the demo scenario">
+            <span aria-hidden="true">↺</span> Reset
+          </button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="heroTitle">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> SURPLUS FOOD, SECOND CHANCE</div>
+            <h1 id="heroTitle">A better next stop<br /><em>before time runs out.</em></h1>
+            <p>Forkcast finds a feasible home for surplus food, then reroutes the plan when something changes.</p>
+          </div>
+          <div class="hero-note">
+            <span class="note-icon" aria-hidden="true">✳</span>
+            <div><strong>Today’s rescue window</strong><span>One batch · one cancellation · one smart reroute</span></div>
+          </div>
+        </section>
+
+        <div class="demo-ribbon">
+          <span><strong>DEMO MODE</strong> · All businesses, recipients, and pickup events are fictional.</span>
+          <span class="model-status"><span class="model-dot"></span> No external model calls</span>
+        </div>
+
+        <section class="workspace" aria-label="Forkcast surplus recovery demo">
+          <div class="main-column">
+            <article class="panel batch-panel">
+              <div class="panel-heading">
+                <div>
+                  <div class="section-kicker">BATCH FC-024 <span class="live-dot"></span></div>
+                  <h2>Tonight’s surplus</h2>
+                </div>
+                <span class="status-pill" id="batchStatus">ROUTE PROPOSED</span>
+              </div>
+
+              <div class="batch-summary">
+                <div class="loaf-art" aria-hidden="true">
+                  <svg viewBox="0 0 120 100" fill="none">
+                    <path d="M17 59c0-18 19-33 43-33s43 15 43 33v16c0 7-6 12-13 12H30c-7 0-13-5-13-12V59Z" fill="#D99B58" />
+                    <path d="M29 56c3-9 9-15 17-19M51 52c3-9 9-15 17-18M73 52c3-8 8-13 14-16" stroke="#F4D4A7" stroke-width="5" stroke-linecap="round" />
+                    <path d="M13 87h96" stroke="#B7C1AE" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="99" cy="23" r="13" fill="#B9D69B" />
+                    <path d="M95 23h8M99 19v8" stroke="#234638" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="batch-details">
+                  <div class="quantity"><span id="quantityDisplay">30</span> <small>loaves</small></div>
+                  <div class="item-name">Fresh sourdough</div>
+                  <div class="business-line"><span class="business-icon">⌂</span> Apricot Bakehouse <span class="location-sep">·</span> Kadıköy, Istanbul</div>
+                </div>
+                <div class="deadline-card">
+                  <span class="deadline-label">PICKUP BY</span>
+                  <strong>20:30</strong>
+                  <span class="deadline-date">Today · 27 Oct</span>
+                  <div class="deadline-progress"><span></span></div>
+                  <span class="time-left">80 min remaining</span>
+                </div>
+              </div>
+
+              <div class="safety-strip">
+                <span class="checkmark" aria-hidden="true">✓</span>
+                <div><strong>Demo safety gate passed</strong><span>Required storage and preparation facts are present in this synthetic batch.</span></div>
+                <span class="gate-tag">RULE CHECK</span>
+              </div>
+            </article>
+
+            <article class="panel routes-panel">
+              <div class="panel-heading routes-heading">
+                <div>
+                  <div class="section-kicker">FEASIBLE OPTIONS</div>
+                  <h2 id="routesTitle">Best available route</h2>
+                </div>
+                <span class="route-count">3 checked</span>
+              </div>
+
+              <div class="selected-route" id="selectedRoute">
+                <div class="route-rank">TOP<br />MATCH</div>
+                <div class="route-destination">
+                  <div class="destination-title"><strong id="selectedName">Sahil Community Kitchen</strong><span class="selected-tag" id="selectedTag">PROPOSED</span></div>
+                  <span id="selectedReason">Fastest feasible pickup · full batch capacity</span>
+                </div>
+                <div class="route-eta"><strong id="selectedEta">8</strong><span>min ETA</span></div>
+                <div class="route-arrow" aria-hidden="true">↗</div>
+              </div>
+
+              <div class="candidate-list" id="candidateList" aria-live="polite">
+                <div class="candidate-row selected-candidate" data-candidate="sahil">
+                  <span class="candidate-marker">01</span>
+                  <span class="candidate-name">Sahil Community Kitchen</span>
+                  <span class="candidate-facts">1.2 km <i>·</i> cap. 36 <i>·</i> closes 20:00</span>
+                  <span class="candidate-state" id="state-sahil">SELECTED</span>
+                </div>
+                <div class="candidate-row" data-candidate="kadikoy">
+                  <span class="candidate-marker">02</span>
+                  <span class="candidate-name">Kadıköy Community Pantry</span>
+                  <span class="candidate-facts">2.6 km <i>·</i> cap. 35 <i>·</i> closes 21:00</span>
+                  <span class="candidate-state" id="state-kadikoy">BACKUP</span>
+                </div>
+                <div class="candidate-row rejected-candidate" data-candidate="moda">
+                  <span class="candidate-marker">03</span>
+                  <span class="candidate-name">Moda Neighbourhood Fridge</span>
+                  <span class="candidate-facts">0.6 km <i>·</i> cap. 18 <i>·</i> closes 20:30</span>
+                  <span class="candidate-state" id="state-moda">CAPACITY TOO LOW</span>
+                </div>
+              </div>
+              <div class="constraint-note"><span aria-hidden="true">↳</span> Hard constraints filter first. Travel time ranks only the feasible options.</div>
+            </article>
+
+            <div class="action-row" id="actionRow">
+              <div class="action-copy" id="actionCopy"><span class="action-step">NEXT EVENT</span><strong>A recipient cancels shortly before pickup.</strong></div>
+              <button class="primary-button" id="cancelButton" type="button">Simulate cancellation <span aria-hidden="true">→</span></button>
+              <button class="primary-button confirm-button" id="confirmButton" type="button" hidden>Confirm simulated pickup <span aria-hidden="true">✓</span></button>
+            </div>
+          </div>
+
+          <aside class="side-column">
+            <article class="panel decision-panel">
+              <div class="panel-heading">
+                <div>
+                  <div class="section-kicker">AGENT ACTIVITY</div>
+                  <h2>Decision trail</h2>
+                </div>
+                <span class="trail-indicator"><span></span> LIVE</span>
+              </div>
+              <div class="timeline" id="timeline" aria-live="polite">
+                <div class="timeline-item completed">
+                  <span class="timeline-marker">✓</span>
+                  <div><strong>Batch received</strong><span>30 loaves · Apricot Bakehouse</span><time>19:10</time></div>
+                </div>
+                <div class="timeline-item completed">
+                  <span class="timeline-marker">✓</span>
+                  <div><strong>Safety facts checked</strong><span>All configured demo rules passed</span><time>19:10</time></div>
+                </div>
+                <div class="timeline-item current" id="proposalEvent">
+                  <span class="timeline-marker">3</span>
+                  <div><strong>Route proposed</strong><span>Sahil Community Kitchen · 8 min ETA</span><time>19:10</time></div>
+                </div>
+              </div>
+              <div class="trail-footer"><span class="trail-lock" aria-hidden="true">⌑</span> Every decision has a reason. Every outcome is recorded.</div>
+            </article>
+
+            <article class="panel impact-panel">
+              <div class="impact-top"><span class="section-kicker">VERIFIED IMPACT</span><span class="impact-icon" aria-hidden="true">✳</span></div>
+              <div class="impact-number"><span id="rescuedDisplay">0</span><small> loaves</small></div>
+              <p id="impactMessage">Nothing counted as rescued until pickup is confirmed.</p>
+              <div class="impact-rule"><span></span><span></span><span></span><span></span><span></span></div>
+              <div class="impact-foot"><span id="impactStatus">AWAITING CONFIRMATION</span><span>OUTCOME LEDGER</span></div>
+            </article>
+
+            <div class="logic-card">
+              <span class="logic-icon" aria-hidden="true">◈</span>
+              <div><strong>Rules before recommendations</strong><p>The demo uses deterministic safety and capacity checks. No model decides whether food is safe.</p></div>
+            </div>
+          </aside>
+        </section>
+
+        <footer class="footer">
+          <span class="footer-brand">forkcast<span>.</span></span>
+          <span>Rescue, recalculated.</span>
+          <span class="footer-right">A small demo for a big daily problem <span aria-hidden="true">↗</span></span>
+        </footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
